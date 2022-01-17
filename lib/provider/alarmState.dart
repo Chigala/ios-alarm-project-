@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_clock_application/utils/alarmObject.dart';
 
 class AlarmState extends ChangeNotifier {
   var hour = 0;
@@ -13,6 +14,8 @@ class AlarmState extends ChangeNotifier {
   bool alarmRing = false;
   bool vibrate = false;
   bool snooze = false;
+  List<AlarmObject> alarmList = [
+  ];
 
   // int getHour() => hour;
   // setHour(int value) => value = hour;
@@ -79,10 +82,29 @@ class AlarmState extends ChangeNotifier {
   void handleSnooze(value) {
     snooze = value;
     notifyListeners();
+    print(snooze);
   }
 
   void handleVibrate(value) {
     vibrate = value;
     notifyListeners();
+  }
+
+  void addAlarmToArray() {
+    alarmList.add(AlarmObject(
+        getHour: hour,
+        wednesday: isWednesday,
+        getMin: min,
+        monday: isMonday,
+        tuesday: isTuesday,
+        thursday: isThursday,
+        friday: isFriday,
+        saturday: isSaturday,
+        sunday: isSunday,
+        getAlarmRing: alarmRing,
+        getVibrate: vibrate,
+        getSnooze: snooze));
+    notifyListeners();
+    
   }
 }

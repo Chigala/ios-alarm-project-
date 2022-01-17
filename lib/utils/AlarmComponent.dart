@@ -18,21 +18,28 @@ class AlarmComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Column(
-          children: [
-            Text(title),
-            Text(name, style: TextStyle(fontSize: 10, color: glowingYellow))
-          ],
-        ),
-        Switch(
-          value: conditional,
-          onChanged:(value)=> providerFunction(value) ,
-          activeColor: glowingYellow,
-          inactiveThumbColor: Colors.grey[600],
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: TextStyle(color: Colors.white, fontSize: 20),),
+              Text(name, style: TextStyle(fontSize: 15, color: glowingYellow))
+            ],
+          ),
+          Switch(
+            value: conditional,
+            onChanged:(value)=> providerFunction(value) ,
+            activeColor: glowingYellow,
+            activeTrackColor: Colors.grey[600],
+            inactiveThumbColor: Colors.grey[600],
+          )
+        ],
+      ),
     );
   }
 }

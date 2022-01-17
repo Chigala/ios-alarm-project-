@@ -20,6 +20,16 @@ class SetAlarmPage extends StatefulWidget {
 
 class _SetAlarmPageState extends State<SetAlarmPage> {
   var alarmState;
+  int _currentIndex = 0;
+
+  void changeIndex(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+    if (index == 1) {
+      Provider.of<AlarmState>(context, listen: false).addAlarmToArray();
+    }
+  }
 
   @override
   void initState() {
@@ -35,8 +45,35 @@ class _SetAlarmPageState extends State<SetAlarmPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("chigala"),
+        backgroundColor: backgroundColor,
         elevation: 0,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
+        unselectedFontSize: 20,
+        selectedFontSize: 20,
+        selectedItemColor: glowingYellow,
+        unselectedItemColor: Colors.white,
+        backgroundColor: backgroundColor,
+        currentIndex: _currentIndex,
+        onTap: changeIndex,
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.business,
+              size: 0,
+            ),
+            label: 'cancel',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.business,
+              size: 0,
+            ),
+            label: 'save',
+          ),
+        ],
       ),
       body: Container(
         color: backgroundColor,
@@ -107,7 +144,6 @@ class _SetAlarmPageState extends State<SetAlarmPage> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     SizedBox(
                       width: 100,
@@ -128,15 +164,18 @@ class _SetAlarmPageState extends State<SetAlarmPage> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      width: 20,
-                      height: 100,
-                      child: Icon(FontAwesomeIcons.arrowRight,
-                          color: Colors.white),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 40),
+                      child: SizedBox(
+                        child: Text(
+                          ":",
+                          style: TextStyle(color: Colors.white, fontSize: 50),
+                        ),
+                      ),
                     ),
                     SizedBox(
                       width: 100,
-                      height: 500,
+                      height: 200,
                       child: ListWheelScrollView(
                         itemExtent: 70,
                         physics: FixedExtentScrollPhysics(),
@@ -164,7 +203,7 @@ class _SetAlarmPageState extends State<SetAlarmPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Container(
                   width: double.infinity,
-                  height: 500,
+                  height: 250,
                   decoration: BoxDecoration(
                       color: containerColor,
                       borderRadius: BorderRadius.circular(20)),
@@ -175,7 +214,7 @@ class _SetAlarmPageState extends State<SetAlarmPage> {
                       SizedBox(height: 10),
                       Text(
                         "Mon, Tue, Wed",
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       SizedBox(
                         height: 10,
