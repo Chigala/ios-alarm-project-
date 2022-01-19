@@ -11,6 +11,8 @@ class AlarmObject {
   bool getAlarmRing = false;
   bool getVibrate = false;
   bool getSnooze = false;
+  bool alarmOn = false;
+  Function handleAlarmIsOn; 
 
   AlarmObject(
       {required this.getHour,
@@ -24,5 +26,7 @@ class AlarmObject {
       required this.sunday,
       required this.getAlarmRing,
       required this.getVibrate,
-      required this.getSnooze});
+      required this.getSnooze,
+      required this.alarmOn,
+      required this.handleAlarmIsOn});
 }

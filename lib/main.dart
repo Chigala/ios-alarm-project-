@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:my_clock_application/provider/alarmState.dart';
 import 'package:my_clock_application/themes.dart';
+import 'package:my_clock_application/utils/alarms.dart';
 import 'package:my_clock_application/utils/dateTime.dart';
 
 import 'pages/setAlarmPage.dart';
@@ -45,50 +46,69 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final alarmState = Provider.of<AlarmState>(context);
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 70),
-        child: Column(
-          children: [
-            DateTimes(),
-            SizedBox(height: 100),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SizedBox(
-                  width: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SetAlarmPage()),
-                      );
-                    },
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: glowingYellow, width: 3),
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Icon(
-                        Icons.add,
-                        size: 30,
-                        color: glowingYellow,
+    return Consumer<AlarmState>(builder: (context, store, child) {
+      var alarmArray = store.alarmList;
+      return Scaffold(
+        backgroundColor: backgroundColor,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 70),
+          child: Column(
+            children: [
+              DateTimes(),
+              SizedBox(height: 100),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SetAlarmPage()),
+                        );
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: glowingYellow, width: 3),
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Icon(
+                          Icons.add,
+                          size: 30,
+                          color: glowingYellow,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                
-              ],
-            )
-          ],
+                ],
+              ),
+              Column(
+                children: alarmArray.map((e) => Alarms(
+                  hours: e.getHour,
+                      mins: e.getMin,
+                      isWednesday: e.wednesday,
+                      isMonday: e.monday,
+                      isSunday: e.sunday,
+                      isTuesday: e.tuesday,
+                      isThursday: e.thursday,
+                      isFriday: e.friday,
+                      isAlarmOn: e.alarmOn,
+                      handleAlarmOn: e.handleAlarmIsOn,
+                      isSaturday: e.saturday, 
+                      alarmRing: e.getAlarmRing,
+                      snooze: e.getSnooze,
+                      vibrate: e.getVibrate,)).toList()
+              )
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

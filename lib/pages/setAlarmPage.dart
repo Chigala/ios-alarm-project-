@@ -182,7 +182,7 @@ class _SetAlarmPageState extends State<SetAlarmPage> {
                         magnification: 3,
                         overAndUnderCenterOpacity: 0.1,
                         onSelectedItemChanged: (index) {
-                          store.handleChangeHour(index);
+                          store.handleChangeMin(index);
                         },
                         children: <Widget>[
                           for (int i = 0; i < 60; i++)

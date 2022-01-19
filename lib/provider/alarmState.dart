@@ -14,28 +14,16 @@ class AlarmState extends ChangeNotifier {
   bool alarmRing = false;
   bool vibrate = false;
   bool snooze = false;
-  List<AlarmObject> alarmList = [
-  ];
-
-  // int getHour() => hour;
-  // setHour(int value) => value = hour;
-  // getIsWednesday() => isWednesday;
-  // setIsWednesday(bool value) => value = isWednesday;
-  // bool getIsSunday() => isSunday;
-  // setIsSunday(bool value) => value = isSunday;
-  // getIsMonday() => isMonday;
-  // setIsMonday(bool value) => value = isMonday;
-  // bool getIsTuesday() => isTuesday;
-  // setIsTuesday(bool value) => value = isTuesday;
-  // getIsThursday() => isThursday;
-  // setIsThursday(bool value) => value = isThursday;
-  // getIsFriday() => isFriday;
-  // setIsFriday(bool value) => value = isFriday;
-  // getIsSaturday() => isSaturday;
-  // setIsSaturday(bool value) => value = isSaturday;
+  List<AlarmObject> alarmList = [];
+ bool isAlarmOn = true;
 
   void handleChangeHour(int index) {
     hour = index;
+    notifyListeners();
+  }
+
+  void handleChangeMin(int index) {
+    min = index;
     notifyListeners();
   }
 
@@ -82,11 +70,16 @@ class AlarmState extends ChangeNotifier {
   void handleSnooze(value) {
     snooze = value;
     notifyListeners();
-    print(snooze);
   }
 
   void handleVibrate(value) {
     vibrate = value;
+    notifyListeners();
+  }
+
+  void handleIsAlarmOn(bool value) {
+    isAlarmOn= value;
+    print(isAlarmOn);
     notifyListeners();
   }
 
@@ -103,8 +96,10 @@ class AlarmState extends ChangeNotifier {
         sunday: isSunday,
         getAlarmRing: alarmRing,
         getVibrate: vibrate,
-        getSnooze: snooze));
+        getSnooze: snooze,
+        alarmOn: isAlarmOn,
+        handleAlarmIsOn: handleIsAlarmOn,
+        ));
     notifyListeners();
-    
   }
 }
